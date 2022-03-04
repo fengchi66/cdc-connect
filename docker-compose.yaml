@@ -1,0 +1,24 @@
+version: '2'
+services:
+  mysql:
+    image: debezium/example-mysql:${DEBEZIUM_VERSION}
+    container_name: mysql
+    ports:
+     - 3306:3306
+    environment:
+     - MYSQL_ROOT_PASSWORD=debezium
+     - MYSQL_USER=mysqluser
+     - MYSQL_PASSWORD=mysqlpw
+  connect:
+    image: docker-registry.echoing.tech/bigdata/debezium/connect:${DEBEZIUM_VERSION}
+    container_name: connect
+    ports:
+     - 8083:8083
+    links:
+      - mysql
+    environment:
+     - BOOTSTRAP_SERVERS=10.100.10.36:9092
+     - GROUP_ID=1
+     - CONFIG_STORAGE_TOPIC=connect_configs
+     - OFFSET_STORAGE_TOPIC=connect_offsets
+     - STATUS_STORAGE_TOPIC=connect_statuses
