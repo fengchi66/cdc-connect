@@ -1,5 +1,5 @@
 {
-  "name": "inventory-cdc-connector-avro",
+  "name": "inventory-cdc-connector-json4",
   "config": {
     "connector.class": "io.debezium.connector.mysql.MySqlConnector",
     "tasks.max": "1",
@@ -8,9 +8,13 @@
     "database.user": "debezium",
     "database.password": "dbz",
     "database.server.id": "184054",
-    "database.server.name": "avro",
+    "database.server.name": "json.cdc",
     "database.include.list": "inventory",
     "database.history.kafka.bootstrap.servers": "47.101.175.74:9092",
-    "database.history.kafka.topic": "schema-changes.inventory"
+    "database.history.kafka.topic": "schema-changes.inventory",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false"
   }
 }
