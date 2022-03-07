@@ -1,5 +1,5 @@
 {
-  "name": "inventory-cdc-connector-json4",
+  "name": "inventory-cdc-connector",
   "config": {
     "connector.class": "io.debezium.connector.mysql.MySqlConnector",
     "tasks.max": "1",
@@ -8,7 +8,7 @@
     "database.user": "debezium",
     "database.password": "dbz",
     "database.server.id": "184054",
-    "database.server.name": "json.cdc",
+    "database.server.name": "cdc",
     "database.include.list": "inventory",
     "database.history.kafka.bootstrap.servers": "47.101.175.74:9092",
     "database.history.kafka.topic": "schema-changes.inventory",

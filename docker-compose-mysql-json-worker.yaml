@@ -10,7 +10,7 @@ services:
       - MYSQL_USER=mysqluser
       - MYSQL_PASSWORD=mysqlpw
   connect:
-    image: quay.io/debezium/connect:${DEBEZIUM_VERSION}
+    image: docker-registry.echoing.tech/bigdata/debezium/connect:${DEBEZIUM_VERSION}
     container_name: connect
     ports:
       - 8083:8083
@@ -21,4 +21,4 @@ services:
       - GROUP_ID=1
       - CONFIG_STORAGE_TOPIC=connect_configs
       - OFFSET_STORAGE_TOPIC=connect_offsets
-      - STATUS_STORAGE_TOPIC=onnect_statuses
+      - STATUS_STORAGE_TOPIC=connect_statuses

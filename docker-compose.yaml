@@ -1,52 +1,38 @@
-version: '3'
+version: '2'
 services:
   mysql:
     image: debezium/example-mysql:${DEBEZIUM_VERSION}
     container_name: mysql
     ports:
-      - "3306:3306"
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=debezium
       - MYSQL_USER=mysqluser
       - MYSQL_PASSWORD=mysqlpw
   connect:
-    build:
-      context: debezium-jmx-exporter
-      args:
-        DEBEZIUM_VERSION: ${DEBEZIUM_VERSION}
-        JMX_AGENT_VERSION: 0.15.0
+    image: docker-registry.echoing.tech/bigdata/debezium/connect:${DEBEZIUM_VERSION}
     container_name: connect
     ports:
-      - "8083:8083"
-      - "1976:1976"
+      - 8083:8083
     links:
       - mysql
     environment:
       - BOOTSTRAP_SERVERS=47.101.175.74:9092
       - GROUP_ID=1
-      - CONFIG_STORAGE_TOPIC=connect_configs
-      - OFFSET_STORAGE_TOPIC=connect_offsets
-      - STATUS_STORAGE_TOPIC=onnect_statuses
-      - KAFKA_OPTS=-javaagent:/kafka/etc/jmx_prometheus_javaagent.jar=8080:/kafka/etc/config.yml
-      - JMXHOST=localhost
-      - JMXPORT=1976
-  prometheus:
-    build:
-      context: debezium-prometheus
-      args:
-        PROMETHEUS_VERSION: v2.26.0
-    ports:
-      - 9090:9090
-    links:
-      - connect
-  grafana:
-    build:
-      context: debezium-grafana
-      args:
-        GRAFANA_VERSION: 7.5.5
-    ports:
-      - 3000:3000
-    links:
-      - prometheus
-    environment:
-      - DS_PROMETHEUS=prometheus
+      - CONFIG_STORAGE_TOPIC=cdc_connect_configs
+      - OFFSET_STORAGE_TOPIC=cdc_connect_offsets
+      - STATUS_STORAGE_TOPIC=cdc_connect_statuses
+#  debezium-ui:
+#    image: debezium/debezium-ui:${DEBEZIUM_VERSION}
+#    container_name: debezium-ui
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - KAFKA_CONNECT_URIS=http://127.0.0.1:8083
+#    depends_on:
+#      - connect
+#    networks:
+#      - ui-network
+#networks:
+#  ui-network:
+#    external: false
