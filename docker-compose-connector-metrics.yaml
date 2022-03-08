@@ -18,7 +18,7 @@ services:
       - KAFKA_OPTS=-javaagent:/kafka/etc/jmx_prometheus_javaagent.jar=8080:/kafka/etc/config.yml
       - JMXHOST=localhost
       - JMXPORT=1976
-      - HEAP_OPTS=-Xms4G -Xmx4G
+      - HEAP_OPTS=-Xms3G -Xmx3G
   prometheus:
     build:
       context: debezium-prometheus

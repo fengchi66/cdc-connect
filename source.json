@@ -1,5 +1,5 @@
 {
-  "name": "order-connector",
+  "name": "orders-connector",
   "config": {
     "connector.class": "io.debezium.connector.mysql.MySqlConnector",
     "tasks.max": "1",
@@ -12,9 +12,10 @@
     "database.include.list": "orders",
     "database.history.kafka.bootstrap.servers": "47.101.175.74:9092",
     "database.history.kafka.topic": "schema-changes.orders",
+    "decimal.handling.mode": "double",
     "key.converter": "org.apache.kafka.connect.json.JsonConverter",
     "key.converter.schemas.enable": "false",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "value.converter.schemas.enable": "false"
   }
-}
+}ç
