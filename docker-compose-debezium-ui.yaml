@@ -20,12 +20,14 @@ services:
       - mysql
     environment:
       - BOOTSTRAP_SERVERS=47.101.175.74:9092
-      - GROUP_ID=1
+      - GROUP_ID=cdc-connect
       - CONFIG_STORAGE_TOPIC=connect_configs
       - OFFSET_STORAGE_TOPIC=connect_offsets
       - STATUS_STORAGE_TOPIC=onnect_statuses
       - ENABLE_DEBEZIUM_SCRIPTING=true
       - CONNECT_REST_EXTENSION_CLASSES=io.debezium.kcrestextension.DebeziumConnectRestExtension
+    volumes:
+      - ./source.json:/kafka/source.json
     networks:
       - ui-network
   debezium-ui:
@@ -34,7 +36,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - KAFKA_CONNECT_URI=http://connect:8083
+      - KAFKA_CONNECT_URIS=http://connect:8083
     depends_on:
       - connect
     networks:

@@ -1,5 +1,5 @@
 ARG DEBEZIUM_VERSION
-FROM docker-registry.echoing.tech/bigdata/debezium/connect:${DEBEZIUM_VERSION}
+FROM quay.io/debezium/connect:${DEBEZIUM_VERSION}
 
 ARG JMX_AGENT_VERSION
 RUN mkdir /kafka/etc && cd /kafka/etc &&\
@@ -7,3 +7,4 @@ RUN mkdir /kafka/etc && cd /kafka/etc &&\
         https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/$JMX_AGENT_VERSION/jmx_prometheus_javaagent-$JMX_AGENT_VERSION.jar
 
 COPY config.yml /kafka/etc/config.yml
+COPY connect-log4j.properties /kafka/config/connect-log4j.properties

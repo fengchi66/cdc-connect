@@ -18,10 +18,8 @@ services:
       - mysql
     environment:
       - BOOTSTRAP_SERVERS=47.101.175.74:9092
-      - GROUP_ID=1
-      - CONFIG_STORAGE_TOPIC=connect_configs
-      - OFFSET_STORAGE_TOPIC=connect_offsets
-      - STATUS_STORAGE_TOPIC=connect_statuses
-    volumes:
-      - ./source.json:/kafka/source.json
-# curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @source.json
+      - GROUP_ID=cdc-connect
+      - CONFIG_STORAGE_TOPIC=cdc_onnect_configs
+      - OFFSET_STORAGE_TOPIC=cdc_connect_offsets
+      - STATUS_STORAGE_TOPIC=cdc_connect_statuses
+      - HEAP_OPTS=-Xms3G -Xmx3G
