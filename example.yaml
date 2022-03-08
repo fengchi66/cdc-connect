@@ -10,16 +10,16 @@ services:
       - MYSQL_USER=mysqluser
       - MYSQL_PASSWORD=mysqlpw
   connect:
-    image: docker-registry.echoing.tech/bigdata/debezium/connect:${DEBEZIUM_VERSION}
+    image: debezium/connect:${DEBEZIUM_VERSION}
     container_name: connect
     links:
       - mysql
     ports:
       - "8083:8083"
     environment:
-      - BOOTSTRAP_SERVERS=10.100.10.36:9092
+      - BOOTSTRAP_SERVERS=47.101.175.74:9092
       - GROUP_ID=cdc-connect
       - CONFIG_STORAGE_TOPIC=cdc_connect_configs
       - OFFSET_STORAGE_TOPIC=cdc_connect_offsets
       - STATUS_STORAGE_TOPIC=cdc_connect_statuses
-      - HEAP_OPTS=-Xms5G -Xmx5G
+      - HEAP_OPTS=-Xms4G -Xmx4G
